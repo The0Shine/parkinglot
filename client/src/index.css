@@ -1,0 +1,184 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+#root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100vw;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+h1,
+ul {
+  list-style-type: none;
+}
+
+li {
+  list-style-type: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+/* Scrollbar container */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+/* Scrollbar track */
+::-webkit-scrollbar-track {
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* Scroll thumb color */
+  border-radius: 10px; /* Rounded corners */
+  border: 2px solid #f1f1f1; /* Adds space around the thumb */
+}
+
+/* Hover effect on thumb */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Darker color when hovering */
+}
+
+/* Đặt kiểu chung cho bảng */
+/* Đặt kiểu chung cho bảng */
+table {
+  width: 100%; /* Chiều rộng bảng chiếm toàn bộ container */
+  border-collapse: collapse; /* Gộp các đường viền */
+  font-size: 16px; /* Kích thước chữ */
+  text-align: left; /* Căn chữ bên trái */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
+  border-radius: 8px; /* Bo tròn các góc */
+  overflow: hidden; /* Ẩn các phần viền thừa */
+  transition: background-color 0.3s; /* Hiệu ứng chuyển cho nền */
+}
+
+/* Định dạng cho các ô trong bảng */
+th,
+td {
+  padding: 15px; /* Khoảng cách giữa nội dung và đường viền */
+  border-bottom: 1px solid #e0e0e0; /* Đường viền dưới nhẹ */
+  transition: background-color 0.3s; /* Hiệu ứng chuyển cho ô */
+}
+
+/* Định dạng cho header của bảng */
+th {
+  background-color: #4c74af; /* Màu nền header */
+  color: white; /* Màu chữ trắng */
+  text-transform: uppercase; /* Chữ hoa */
+  font-weight: bold; /* In đậm */
+}
+
+/* Hiệu ứng hover cho các dòng */
+tr:hover {
+  background-color: rgba(76, 175, 80, 0.1); /* Màu nền nhẹ khi hover */
+}
+
+/* Định dạng cho các dòng xen kẽ */
+tr:nth-child(even) {
+  background-color: #f9f9f9; /* Màu nền cho dòng chẵn */
+}
+
+[data-theme="dark"] tr:nth-child(even) {
+  background-color: #3f3d3d; /* Màu nền cho dòng chẵn */
+}
+
+/* Định dạng cho đường viền ngoài của bảng */
+table,
+th,
+td {
+  border: 1px solid #e0e0e0; /* Đường viền ngoài nhẹ */
+}
+
+/* Định dạng cho các ô khi hover */
+td:hover {
+  background-color: rgba(0, 0, 0, 0.05); /* Màu nền nhẹ cho ô khi hover */
+}
+
+/* Thêm một số kiểu cho responsive */
+.table-container {
+  overflow-x: auto; /* Cho phép cuộn ngang nếu bảng rộng */
+  margin: 20px 0; /* Khoảng cách trên dưới */
+}
+
+.rc-table,
+.rc-table-container,
+.rc-table-content {
+  width: 100%;
+}
+
+.search-btn:hover {
+  background-color: #4c74af; /* Màu nền hover */
+  color: white; /* Màu chữ trắng */
+}
+
+[data-theme="dark"] .rc-pagination li,
+[data-theme="dark"] .rc-pagination button,
+[data-theme="dark"] .rc-pagination a {
+  color: white; /* Màu chữ trắng */
+  background-color: #3f3d3d; /* Màu nền */
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
