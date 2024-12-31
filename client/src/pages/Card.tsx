@@ -5,6 +5,8 @@ import { BiPlus } from "react-icons/bi";
 import { ICard } from "../interface";
 import { FaPencilRuler } from "react-icons/fa";
 import { BsTrash2 } from "react-icons/bs";
+import toast from "react-hot-toast";
+import { AxiosError } from "axios";
 
 export const Card = () => {
   const [cards, setCards] = useState<ICard[]>([]);
@@ -102,8 +104,13 @@ export const Card = () => {
       setCards((prev) => [...prev, response.data]);
       setIsModalOpen(false);
       setFormData({ type: "normal", uid: "" });
-    } catch (error) {
-      console.error("Error adding card:", error);
+    } catch (error: unknown) {
+      if (error instanceof AxiosError && error.response) {
+        const errorMessage = error.response.data?.message || "Đã xảy ra lỗi!";
+        toast.error(errorMessage);
+      } else {
+        toast.error("Lỗi không xác định!");
+      }
     }
   };
 
@@ -132,8 +139,13 @@ export const Card = () => {
         );
         setIsModalOpen(false);
         setFormData({ type: "normal", uid: "" });
-      } catch (error) {
-        console.error("Error updating card:", error);
+      } catch (error: unknown) {
+        if (error instanceof AxiosError && error.response) {
+          const errorMessage = error.response.data?.message || "Đã xảy ra lỗi!";
+          toast.error(errorMessage);
+        } else {
+          toast.error("Lỗi không xác định!");
+        }
       }
     } else {
       // Add new card

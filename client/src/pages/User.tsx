@@ -87,8 +87,8 @@ export const User = () => {
                     cccd: user?.cccd ?? "",
                   });
                   setCardIdFormData(user?.cardId?._id ?? ""); // Cập nhật cardId nếu có
-                  setCardUidFormData(user?.cardId?.uid ?? "");
-
+                  setCardUidFormData("");
+                  setIsEditable(false);
                   setIsOpenUser(true); // Mở modal
                 }}
                 className="bg-cyan-500 h-fit w-fit rounded-md p-2 text-base-100"
@@ -124,6 +124,7 @@ export const User = () => {
     setCardIdFormData(""); // Cập nhật cardId nếu có
     setCardUidFormData("");
     setIsOpenUser(true); // Open modal to add new card
+    setIsEditable(false);
   };
   async function fetchUsers() {
     try {
@@ -173,8 +174,6 @@ export const User = () => {
           await axios.patch(`/api/users/${usersavedId}`, {
             cardId: cardIdFormData,
           });
-
-          
         }
         fetchUsers(); // Refresh users list
         fetchCards();
@@ -298,18 +297,16 @@ export const User = () => {
                 <option value="" disabled>
                   Select a card
                 </option>
-                {cards
-                  .filter((card) => card._id !== currentUser?.cardId?._id) // Loại bỏ cardId hiện tại
-                  .map((card) => (
-                    <option
-                      key={card._id}
-                      value={card.uid}
-                      data-cardid={card._id}
-                      data-carduid={card.uid}
-                    >
-                      {card.uid}
-                    </option>
-                  ))}
+                {cards.map((card) => (
+                  <option
+                    key={card._id}
+                    value={card.uid}
+                    data-cardid={card._id}
+                    data-carduid={card.uid}
+                  >
+                    {card.uid}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -350,7 +347,7 @@ export const User = () => {
                   if (userIdToDelete) {
                     await axios.delete(`/api/users/${userIdToDelete}`);
                     fetchUsers();
-                    fetchCards()
+                    fetchCards();
                     setIsOpenDeleteModal(false);
                   }
                 }}

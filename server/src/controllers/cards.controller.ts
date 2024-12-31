@@ -47,8 +47,8 @@ export const addCard = async (req: Request, res: Response, next: NextFunction) =
     })
     await newCard.save()
     res.status(201).json(newCard)
-  } catch (error) {
-    next(error)
+  } catch (error: any) {
+    res.status(400).json({ message: error.message || 'Something went wrong' })
   }
 }
 
@@ -63,8 +63,8 @@ export const updateCard = async (req: Request, res: Response, next: NextFunction
     const card = await Card.findByIdAndUpdate(req.params.id, { uid, type }, { new: true })
     if (!card) throw new Error('Không tìm thấy thẻ')
     res.status(200).json(card)
-  } catch (error) {
-    next(error)
+  } catch (error: any) {
+    res.status(400).json({ message: error.message || 'Something went wrong' })
   }
 }
 
