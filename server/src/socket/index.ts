@@ -123,14 +123,13 @@ export const initSocket = (httpServer: HttpServer) => {
               io.to('admin').emit('warning', warning)
               socket.emit('user-not-found')
             } else {
-              await Log.updateOne(
-                { _id: existingLog._id, userId: existingUser._id },
-                { $set: { paid: true, bill: bill } }
-              )
-              socket.emit('check-out-user-success', { name: existingUser.name, bill: bill })
+              await Log.updateOne({ _id: existingLog._id, userId: existingUser._id }, { $set: { paid: true } })
+              io.to('admin').emit('new-log')
+              socket.emit('check-out-user-success', { name: existingUser.name })
             }
           } else {
             socket.emit('check-out-success', { bill: bill })
+            io.to('admin').emit('new-log')
             await Log.updateOne({ _id: existingLog._id }, { $set: { paid: true, bill: bill } })
           }
         }

@@ -96,7 +96,8 @@ def capture_and_recognize():
             detected_plate = ""
 
 # Khởi tạo camera và mô hình YOLO
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
+
 model = YOLO("runs/detect/train/weights/best.pt")  # Đường dẫn mô hình YOLO
 model.to(device)
 

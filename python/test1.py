@@ -1,5 +1,5 @@
 import cv2
-import easyocr
+from paddleocr import PaddleOCR
 from ultralytics import YOLO
 import torch
 
@@ -7,12 +7,14 @@ import torch
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(f"Using device: {device}")
 
+# Khởi tạo PaddleOCR
+ocr = PaddleOCR(use_angle_cls=True, lang='en', use_gpu=torch.cuda.is_available())
+
 # Hàm nhận diện ký tự biển số
 def segment_image(image):
-    reader = easyocr.Reader(['en'], gpu=True)  # Khởi tạo EasyOCR với GPU
-    results = reader.readtext(image)
+    results = ocr.ocr(image, cls=True)
 
-    if not results:
+    if not results or not results[0]:
         return ""
 
     conversion_dict = {
@@ -24,7 +26,7 @@ def segment_image(image):
         filtered_text = ''.join([char if char.isalnum() else '' for char in text])
         return ''.join([conversion_dict.get(char, char) for char in filtered_text])
 
-    formatted_results = [convert_text(result[1]) for result in results]
+    formatted_results = [convert_text(line[1][0]) for line in results[0]]
     return ' '.join(formatted_results)
 
 # Hàm chụp ảnh và nhận diện biển số

@@ -40,7 +40,7 @@ Servo servoOut;
 const char auth[] = BLYNK_AUTH_TOKEN;
 const char *ssid = "AiLoan02";
 const char *password = "mancityvodich";
-const char *host = "192.168.1.13"; // IP server Node.js
+const char *host = "192.168.1.20"; // IP server Node.js
 const int port = 3000;
 
 bool CurrentIn = false;
@@ -115,14 +115,11 @@ void onCheckOutUserSuccess(const char *payload, size_t length)
 
   // Lấy dữ liệu từ JSON
   String userName = doc["name"];
-  String bill = doc["bill"];
 
   // Hiển thị thông điệp check-out
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Goodbye " + userName);
-  lcd.setCursor(0, 1);
-  lcd.print("Bill: " + bill);
   servoOut.write(90); // Góc mở
 
   updateServoState("servoOut", true);
@@ -362,7 +359,6 @@ void loop()
   if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial())
   {
     String cardUID = getCardUID();
-
     if (digitalRead(IR_IN_PIN) == LOW && cardUID != lastScanUidIn)
     {
       if (S1 == 0 && S2 == 0 && S3 == 0 && S4 == 0)
