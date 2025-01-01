@@ -121,7 +121,7 @@ void onCheckOutUserSuccess(const char *payload, size_t length)
   lcd.setCursor(0, 0);
   lcd.print("Goodbye " + userName);
   servoOut.write(90); // Góc mở
-
+  lastScanUidOut = "";
   updateServoState("servoOut", true);
   CurrentOut = true;
   delay(1000);
@@ -136,7 +136,7 @@ void onCheckOutSuccess(const char *payload, size_t length)
   lcd.clear();
   lcd.setCursor(0, 1);
   lcd.print("Bill: " + bill);
-
+  lastScanUidOut = "";
   // Mở servo ra
   servoOut.write(90); // Góc mở
   updateServoState("servoOut", true);
@@ -150,7 +150,7 @@ void onCheckInUserSuccess(const char *payload, size_t length)
   // Parse JSON từ payload
   DynamicJsonDocument doc(256);
   deserializeJson(doc, payload);
-
+  
   // Lấy dữ liệu từ JSON
   String userName = doc["name"];
 
@@ -160,7 +160,7 @@ void onCheckInUserSuccess(const char *payload, size_t length)
   lcd.print("Welcome " + userName);
   servoIn.write(90);
   updateServoState("servoIn", true);
-
+  lastScanUidIn = "";
   CurrentIn = true;
   delay(1000);
 }
@@ -171,7 +171,7 @@ void onCheckInSuccess(const char *payload, size_t length)
   lcd.print("Welcome ");
 
   // Mở servo vào
-
+  lastScanUidIn = "";
   servoIn.write(90);
   updateServoState("servoIn", true);
   CurrentIn = true;
@@ -192,6 +192,7 @@ void onUserNotFound(const char *payload, size_t length)
   lcd.setCursor(0, 0);
   lcd.print("User not found");
   lastScanUidIn = "";
+  lastScanUidOut = "";
   delay(1000);
 }
 void onInvalidCardOut(const char *payload, size_t length)

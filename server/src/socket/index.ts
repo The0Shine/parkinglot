@@ -107,7 +107,7 @@ export const initSocket = (httpServer: HttpServer) => {
 
       if (existingLog) {
         const plateLog = existingLog.licensePlate
-        if (plateLog !== plate) {
+        if (plateLog.toLocaleLowerCase() !== plate.toLocaleLowerCase()) {
           const warning = await Warning.create({
             cardId: card._id,
             desc: `False liscensePlate `
